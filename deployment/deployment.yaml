@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qod-db
+  labels:
+    app: qod-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qod-db
+  template:
+    metadata:
+      labels:
+        app: qod-db
+    spec:
+      containers:
+        - name: qod-db
+          image: docker.io/ibmicpcoc/qod-db
+          imagePullPolicy: Always
+          ports:
+            - name: mysql
+              containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
